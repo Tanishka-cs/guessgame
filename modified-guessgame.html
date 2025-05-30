@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUESS-THE NUMBER.</title>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(51, 133, 209, 0.867) 0%, #24aff4 100%); 
+            background-image: url("https://w0.peakpx.com/wallpaper/206/463/HD-wallpaper-guess-who-cards-game-print.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+        }
+       
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background-image: url("");
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #FAE3C6;
+            color: #222;
+            backdrop-filter: blur(5px);
+            text-align: center;
+        }
+
+        input, button {
+            padding: 10px;
+            margin-top: 10px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            background-color: #24aff4;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🤔🔍 GUESS THE NUMBER</h2>
+        <p>Presented by Tanishka Yadav</p>
+        <input type="number" id="userInput" placeholder="Enter a number between 1 and 100">
+        <button onclick="checkGuess()">Submit Guess</button>
+        <p class="result" id="resultText"></p>
+        <button onclick="resetGame()">Play Again 🔄</button>
+    </div>
+
+    <script>
+        let secretNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            const userGuess = parseInt(document.getElementById('userInput').value);
+            const resultText = document.getElementById('resultText');
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                resultText.textContent = "❌ Please enter a valid number between 1 and 100!";
+                return;
+            }
+
+            attempts++;
+
+            if (userGuess === secretNumber) {
+                resultText.textContent = `✅ RIGHT GUESS! You guessed it in ${attempts} tries! 🎉`;
+            } else if (Math.abs(userGuess - secretNumber) <= 5) {
+                resultText.textContent = "🧐 VERY CLOSE! THINK A BIT 🤌";
+            } else if (userGuess < secretNumber) {
+                resultText.textContent = "🔼 HINT: Try a greater number!";
+            } else {
+                resultText.textContent = "🔽 HINT: Try a smaller number!";
+            }
+        }
+
+        function resetGame() {
+            secretNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('resultText').textContent = "";
+            document.getElementById('userInput').value = "";
+        }
+    </script>
+</body>
+</html>
+
+
+
